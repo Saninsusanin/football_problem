@@ -1,7 +1,5 @@
 import sys
 
-from math import inf
-
 
 def read_data():
     n, m = list(map(int, sys.stdin.readline().split()))
@@ -33,30 +31,6 @@ class SegmentTree:
         for i in range(n - 2, -1, -1):
             self.tree[i] = max(self.tree[i * 2 + 1: i * 2 + 3])
             self.number_of_elements[i] = sum(self.number_of_elements[i * 2 + 1: i * 2 + 3])
-
-    def get_max(self, l, r):
-        l += self.arr_len - 1
-        r += self.arr_len - 2
-        maximal = -inf
-
-        while (l <= r):
-            if ((l % 2) == 0):
-                left_max = self.tree[l]
-                l = (l + 1 - 1) // 2
-            else:
-                left_max = -inf
-                l = (l - 1) // 2
-
-            if ((r % 2) == 1):
-                right_max = self.tree[r]
-                r = (r - 1 - 2) // 2
-            else:
-                right_max = -inf
-                r = (r - 2) // 2
-
-            maximal = max(maximal, left_max, right_max)
-
-        return maximal
 
     def update(self, i, value):
         node = self.arr_len - 1 + i
